@@ -16,6 +16,12 @@ const client = new Client({
 
 const { token, prefix } = require("./config.js");
 
+console.log(`==============================================`);
+console.log(`         MAYOR STUDIO BOT                  `);
+console.log(`         Powered by Discord.js            `);
+console.log(`==============================================`);
+console.log(`  Copyright (c) MAYOR STUDIO - https://discord.gg/mayor`);
+console.log(`==============================================`);
 
 client.messageCommand = new Collection();
 
@@ -26,11 +32,10 @@ for (const file of messageFiles) {
     client.messageCommand.set(message.name, message);
 }
 
-
 client.on('messageCreate', message => {
     if (!message.content.startsWith(prefix) || message.author.bot) return;
 
-    const args = message.content.slice(1).split(/ +/);
+    const args = message.content.slice(prefix.length).split(/ +/);
     const messageName = args.shift().toLowerCase();  
 
     const messagess = client.messageCommand.get(messageName) || client.messageCommand.find(cmd => cmd.alliases && cmd.alliases.includes(messageName));
@@ -45,13 +50,13 @@ client.on('messageCreate', message => {
     }
 });
 
-
 client.once("ready", async () => {
-console.log("ready " + client.user.username);
-    client.user.setActivity("Fire Services", {
-type: ActivityType.Playing
-});
+    console.log(`==============================================`);
+    console.log(`         MAYOR STUDIO BOT IS ONLINE          `);
+    console.log(`==============================================`);
+    client.user.setActivity("MAYOR STUDIO", {
+        type: ActivityType.Playing
+    });
 });
 
-
-client.login(token)
+client.login(token);
